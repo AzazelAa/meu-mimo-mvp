@@ -453,28 +453,100 @@
     }
     .reviewer-name { font-weight: 700; color: var(--dark); font-size: 0.875rem; }
 
-    /* FAQ Section */
-    .faq-section { max-width: 760px; margin: 48px auto; padding: 0 20px; }
-    .faq-header { text-align: center; margin-bottom: 28px; }
-    .faq-header h2 { font-family: 'Playfair Display', serif; font-size: 1.85rem; }
+    /* Cozy Glow Effect for Cards */
+    .product-card {
+      position: relative;
+      background: white;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border);
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: calc(var(--radius-md) + 2px);
+      background: linear-gradient(135deg, rgba(200, 109, 124, 0.4), rgba(232, 222, 212, 0.2), rgba(158, 123, 102, 0.4));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+      filter: blur(8px);
+    }
+    .product-card:hover::before { opacity: 1; }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(200, 109, 124, 0.4);
+    }
+
+    /* MotionAccordion FAQ Section */
+    .faq-section { max-width: 780px; margin: 56px auto; padding: 0 20px; }
+    .faq-header { text-align: center; margin-bottom: 32px; }
+    .faq-header h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--dark); margin-bottom: 8px; }
+    .faq-header p { color: var(--gray-muted); font-size: 0.95rem; }
+    
+    .faq-container { display: flex; flex-direction: column; gap: 12px; }
     .faq-item {
       background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      margin-bottom: 12px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
       overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-sm);
+    }
+    .faq-item.active {
+      border-color: rgba(200, 109, 124, 0.4);
+      box-shadow: var(--shadow-md);
     }
     .faq-question {
-      padding: 16px 20px;
+      padding: 18px 24px;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 1rem;
+      color: var(--dark);
       cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      user-select: none;
+    }
+    .faq-icon-badge {
+      width: 34px;
+      height: 34px;
+      background: var(--pink-soft);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary-dark);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s;
+    }
+    .faq-item.active .faq-icon-badge {
+      transform: rotate(180deg);
+      background: var(--primary);
+      color: white;
+    }
+    .faq-answer-wrapper {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, padding 0.3s ease;
+      padding: 0 24px;
+    }
+    .faq-item.active .faq-answer-wrapper {
+      max-height: 200px;
+      opacity: 1;
+      padding: 0 24px 20px;
     }
     .faq-answer {
-      padding: 0 20px 16px;
       color: var(--gray-muted);
-      font-size: 0.9rem;
-      line-height: 1.5;
+      font-size: 0.925rem;
+      line-height: 1.6;
     }
 
     /* Footer */
@@ -834,18 +906,56 @@
     </div>
   </section>
 
-  <!-- FAQ Section -->
+  <!-- FAQ Section (MotionAccordion Style) -->
   <section class="faq-section">
     <div class="faq-header">
       <h2>Dúvidas Frequentes</h2>
+      <p>Respostas rápidas para as principais perguntas sobre nossos moldes digitais.</p>
     </div>
-    <div class="faq-item">
-      <div class="faq-question">Como recebo meu produto digital?</div>
-      <div class="faq-answer">Assim que o pagamento Pix for confirmado, o link de acesso ao modelo editável no Canva é disponibilizado imediatamente e enviado para o seu e-mail.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">Preciso da versão paga do Canva?</div>
-      <div class="faq-answer">Não. Todos os nossos arquivos foram desenvolvidos para funcionarem no Canva Gratuito sem necessidade de assinatura.</div>
+    <div class="faq-container">
+      
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <span>Como recebo meu produto digital?</span>
+          <div class="faq-icon-badge">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            Assim que o pagamento Pix for confirmado pelo sistema, o link de acesso ao modelo editável no Canva é disponibilizado imediatamente na tela e enviado para o seu e-mail cadastrado.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <span>Preciso da versão paga do Canva Pro?</span>
+          <div class="faq-icon-badge">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            Não! Todos os nossos arquivos foram desenvolvidos para funcionarem 100% no Canva Gratuito, sem necessidade de qualquer assinatura ou pagamento extra.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-question">
+          <span>Posso editar pelo celular?</span>
+          <div class="faq-icon-badge">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="faq-answer-wrapper">
+          <div class="faq-answer">
+            Sim! Você pode personalizar fotos, nomes, frases e QR Codes diretamente pelo aplicativo gratuito do Canva no seu celular ou pelo navegador do computador.
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1039,6 +1149,14 @@
 
     function closeModal() {
       document.getElementById('modalOverlay').classList.remove('open');
+    }
+
+    function toggleFaq(itemEl) {
+      const isActive = itemEl.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+      if (!isActive) {
+        itemEl.classList.add('active');
+      }
     }
   </script>
 </body>
