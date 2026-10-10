@@ -3,268 +3,860 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meu Mimo Digital — Presentes & Lembranças Especiais</title>
+  <title>Meu Mimo Digital — Presentes & Lembranças Digitais Especiais</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #ec4899;
-      --primary-hover: #db2777;
-      --pink-light: #fdf2f8;
-      --pink-subtle: #fce7f3;
-      --dark: #1e1b4b;
+      --primary-dark: #be185d;
+      --primary-light: #fbcfe8;
+      --pink-soft: #fff0f6;
+      --accent: #8b5cf6;
+      --dark: #0f172a;
+      --dark-card: #1e293b;
       --gray-muted: #64748b;
-      --gray-bg: #f8fafc;
-      --border: #f1f5f9;
-      --shadow: 0 10px 30px -5px rgba(236, 72, 153, 0.15);
-      --shadow-sm: 0 4px 12px rgba(0,0,0,0.05);
-      --radius: 16px;
+      --gray-light: #f8fafc;
+      --border: #e2e8f0;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 10px 25px -5px rgba(236, 72, 153, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-    body { background: var(--gray-bg); color: var(--dark); line-height: 1.6; }
-    
-    /* Top Notification Bar */
-    .top-bar { background: linear-gradient(90deg, #ec4899, #f43f5e); color: white; text-align: center; padding: 8px 16px; font-size: 0.875rem; font-weight: 600; }
-    
-    /* Header & Navigation */
-    header { background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm); }
-    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; }
-    .logo { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 600; color: var(--dark); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--gray-light); color: var(--dark); line-height: 1.6; overflow-x: hidden; }
+
+    /* Top Announcement Bar */
+    .top-bar {
+      background: linear-gradient(90deg, #ec4899, #8b5cf6);
+      color: white;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .top-bar span { background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 99px; font-size: 0.75rem; }
+
+    /* Header & Navbar */
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--dark);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
     .logo span { color: var(--primary); font-style: italic; }
-    .nav-links { display: flex; gap: 24px; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--dark); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--primary); }
-    
-    .cart-btn { background: var(--pink-light); border: 2px solid var(--pink-subtle); color: var(--primary); padding: 10px 20px; border-radius: 99px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
-    .cart-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
-    .cart-badge { background: var(--primary); color: white; padding: 2px 8px; border-radius: 99px; font-size: 0.75rem; }
+
+    .search-box {
+      flex-grow: 1;
+      max-width: 420px;
+      margin: 0 32px;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px 18px 10px 42px;
+      border: 1.5px solid var(--border);
+      border-radius: 99px;
+      background: var(--gray-light);
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-box input:focus {
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.1);
+    }
+    .search-box svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--gray-muted);
+      stroke-width: 2;
+    }
+
+    .nav-actions { display: flex; align-items: center; gap: 16px; }
+    .cart-btn {
+      background: linear-gradient(135deg, var(--pink-soft), var(--primary-light));
+      border: 1.5px solid rgba(236, 72, 153, 0.3);
+      color: var(--primary-dark);
+      padding: 10px 22px;
+      border-radius: 99px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .cart-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .cart-badge {
+      background: var(--primary);
+      color: white;
+      padding: 3px 9px;
+      border-radius: 99px;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
     .cart-btn:hover .cart-badge { background: white; color: var(--primary); }
 
-    /* Hero Section */
-    .hero { background: linear-gradient(135deg, #fff0f6 0%, #fce7f3 100%); padding: 64px 24px; text-align: center; border-bottom: 1px solid var(--pink-subtle); }
-    .hero-content { max-width: 800px; margin: 0 auto; }
-    .hero-tag { display: inline-block; background: white; color: var(--primary); font-weight: 700; padding: 6px 16px; border-radius: 99px; font-size: 0.85rem; margin-bottom: 16px; box-shadow: var(--shadow-sm); }
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--dark); margin-bottom: 16px; line-height: 1.2; }
-    .hero p { font-size: 1.15rem; color: var(--gray-muted); margin-bottom: 32px; }
-    .hero-btn { background: var(--primary); color: white; text-decoration: none; padding: 14px 32px; border-radius: 99px; font-weight: 700; font-size: 1.05rem; box-shadow: var(--shadow); display: inline-block; transition: transform 0.2s, background 0.2s; }
-    .hero-btn:hover { transform: translateY(-2px); background: var(--primary-hover); }
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, #fff0f6 0%, #fae8ff 50%, #f3e8ff 100%);
+      padding: 72px 24px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-grid {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-text { text-align: left; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      color: var(--primary-dark);
+      font-weight: 800;
+      padding: 8px 18px;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(236, 72, 153, 0.2);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.25rem;
+      color: var(--dark);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--primary); font-style: italic; }
+    .hero p { font-size: 1.15rem; color: var(--gray-muted); margin-bottom: 32px; max-width: 540px; }
+    .hero-cta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 99px;
+      font-weight: 800;
+      font-size: 1.05rem;
+      box-shadow: var(--shadow-md);
+      transition: all 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(236, 72, 153, 0.35); }
+    .btn-secondary {
+      background: white;
+      color: var(--dark);
+      text-decoration: none;
+      padding: 16px 28px;
+      border-radius: 99px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: var(--gray-light); border-color: var(--dark); }
 
-    /* Categories Bar */
-    .categories { max-width: 1200px; margin: 40px auto 0; padding: 0 24px; }
-    .section-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 24px; color: var(--dark); display: flex; align-items: center; gap: 12px; }
-    .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
-    .category-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; text-align: center; text-decoration: none; color: var(--dark); font-weight: 600; transition: all 0.2s; box-shadow: var(--shadow-sm); }
-    .category-card:hover { border-color: var(--primary); transform: translateY(-4px); box-shadow: var(--shadow); }
-    .category-card img { width: 100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 12px; }
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-card-stack {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      height: 380px;
+    }
+    .hero-img-main {
+      width: 85%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 4px solid white;
+      transform: rotate(-3deg);
+      transition: transform 0.4s;
+    }
+    .hero-img-sub {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 65%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 4px solid white;
+      transform: rotate(4deg);
+    }
+
+    /* Trust Badges Bar */
+    .trust-bar {
+      background: white;
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-grid {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+    }
+    .trust-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--pink-soft);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: var(--primary);
+    }
+    .trust-title { font-weight: 700; font-size: 0.95rem; color: var(--dark); }
+    .trust-sub { font-size: 0.8rem; color: var(--gray-muted); }
+
+    /* Category Filter Tabs */
+    .filter-section {
+      max-width: 1240px;
+      margin: 48px auto 24px;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .filter-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+    .tab-btn {
+      background: white;
+      border: 1.5px solid var(--border);
+      color: var(--gray-muted);
+      padding: 10px 20px;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
 
     /* Products Grid */
-    .products-section { max-width: 1200px; margin: 56px auto; padding: 0 24px; }
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 28px; }
-    .product-card { background: white; border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; transition: all 0.3s; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
-    .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: var(--pink-subtle); }
-    .product-img-wrap { position: relative; height: 260px; overflow: hidden; background: #fafafa; }
-    .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-    .product-card:hover .product-img-wrap img { transform: scale(1.05); }
-    .badge-discount { position: absolute; top: 12px; left: 12px; background: #ef4444; color: white; font-weight: 800; font-size: 0.75rem; padding: 4px 10px; border-radius: 99px; text-transform: uppercase; }
+    .products-container { max-width: 1240px; margin: 0 auto 64px; padding: 0 24px; }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+    }
+    .product-card {
+      background: white;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+    }
+    .product-thumb {
+      height: 270px;
+      position: relative;
+      overflow: hidden;
+      background: #f1f5f9;
+      cursor: pointer;
+    }
+    .product-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-thumb img { transform: scale(1.08); }
     
-    .product-info { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-    .product-category { font-size: 0.8rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 6px; }
-    .product-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; color: var(--dark); line-height: 1.3; }
-    .product-desc { font-size: 0.9rem; color: var(--gray-muted); margin-bottom: 16px; flex-grow: 1; }
-    
-    .product-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; pt: 16px; border-top: 1px solid #f8fafc; }
-    .price-wrap { display: flex; flex-direction: column; }
-    .price-old { font-size: 0.85rem; color: #94a3b8; text-decoration: line-through; }
-    .price-current { font-size: 1.35rem; font-weight: 800; color: var(--dark); }
-    .add-btn { background: var(--primary); color: white; border: none; padding: 10px 18px; border-radius: 99px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
-    .add-btn:hover { background: var(--primary-hover); }
+    .badge-discount {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: linear-gradient(135deg, #ef4444, #f43f5e);
+      color: white;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 5px 12px;
+      border-radius: 99px;
+      box-shadow: var(--shadow-sm);
+    }
+    .badge-digital {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(15, 23, 42, 0.85);
+      color: white;
+      backdrop-filter: blur(4px);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 99px;
+    }
 
-    /* Testimonials */
-    .testimonials-section { background: white; padding: 64px 24px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .testimonials-container { max-width: 1200px; margin: 0 auto; }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 32px; }
-    .testimonial-card { background: var(--gray-bg); padding: 24px; border-radius: var(--radius); border: 1px solid var(--border); }
-    .testimonial-stars { color: #f59e0b; margin-bottom: 12px; }
-    .testimonial-text { font-size: 0.95rem; font-style: italic; color: #334155; margin-bottom: 16px; }
-    .testimonial-author { font-weight: 700; color: var(--dark); font-size: 0.9rem; }
+    .product-content {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .product-cat {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .product-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+      line-height: 1.35;
+      cursor: pointer;
+    }
+    .product-name:hover { color: var(--primary); }
+    .product-snippet {
+      font-size: 0.9rem;
+      color: var(--gray-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    .product-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--gray-light);
+    }
+    .price-box { display: flex; flex-direction: column; }
+    .price-old { font-size: 0.85rem; color: #94a3b8; text-decoration: line-through; }
+    .price-main { font-size: 1.4rem; font-weight: 800; color: var(--dark); }
+
+    .buy-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .buy-btn:hover {
+      background: var(--primary-dark);
+      box-shadow: var(--shadow-sm);
+      transform: scale(1.03);
+    }
+
+    /* Testimonials Carousel / Grid */
+    .reviews-section {
+      background: white;
+      padding: 72px 24px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .reviews-header { text-align: center; max-width: 600px; margin: 0 auto 48px; }
+    .reviews-header h2 { font-family: 'Playfair Display', serif; font-size: 2.25rem; margin-bottom: 12px; }
+    .reviews-header p { color: var(--gray-muted); font-size: 1.05rem; }
+    .reviews-grid {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+    }
+    .review-card {
+      background: var(--gray-light);
+      padding: 28px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    .stars { color: #f59e0b; font-size: 1.1rem; margin-bottom: 14px; }
+    .review-text { font-size: 1rem; color: #334155; font-style: italic; margin-bottom: 20px; line-height: 1.6; }
+    .reviewer-info { display: flex; align-items: center; gap: 12px; }
+    .reviewer-avatar {
+      width: 40px;
+      height: 40px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 800;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .reviewer-name { font-weight: 700; color: var(--dark); font-size: 0.95rem; }
+
+    /* FAQ Section */
+    .faq-section { max-width: 800px; margin: 72px auto; padding: 0 24px; }
+    .faq-header { text-align: center; margin-bottom: 40px; }
+    .faq-header h2 { font-family: 'Playfair Display', serif; font-size: 2.25rem; }
+    .faq-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 20px 24px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-answer {
+      padding: 0 24px 20px;
+      color: var(--gray-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
 
     /* Footer */
-    footer { background: var(--dark); color: white; padding: 48px 24px 24px; margin-top: 64px; }
-    .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 32px; margin-bottom: 40px; }
-    .footer-brand h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 12px; }
-    .footer-brand p { color: #94a3b8; font-size: 0.9rem; }
-    .footer-col h4 { font-size: 1rem; margin-bottom: 16px; color: var(--primary); text-transform: uppercase; font-weight: 700; }
-    .footer-col ul { list-style: none; }
-    .footer-col li { margin-bottom: 10px; color: #cbd5e1; font-size: 0.9rem; }
-    .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 24px; border-top: 1px solid #334155; text-align: center; color: #64748b; font-size: 0.85rem; }
+    footer { background: var(--dark); color: white; padding: 64px 24px 32px; margin-top: 80px; }
+    .footer-content {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand h2 { font-family: 'Playfair Display', serif; font-size: 1.75rem; margin-bottom: 16px; }
+    .footer-brand p { color: #94a3b8; font-size: 0.95rem; max-width: 340px; }
+    .footer-title { font-size: 1rem; text-transform: uppercase; font-weight: 800; color: var(--primary); margin-bottom: 20px; letter-spacing: 0.5px; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 12px; }
+    .footer-links a { color: #cbd5e1; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--primary); }
+    .footer-bottom {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding-top: 32px;
+      border-top: 1px solid #334155;
+      text-align: center;
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+
+    /* Floating WhatsApp Button */
+    .wsp-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #25d366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+      z-index: 99;
+      text-decoration: none;
+      transition: transform 0.3s;
+    }
+    .wsp-float:hover { transform: scale(1.1); }
+    .wsp-float svg { width: 32px; height: 32px; fill: white; }
+
+    /* Modal Quick View */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(6px);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      background: white;
+      width: 90%;
+      max-width: 840px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 10;
+      box-shadow: var(--shadow-sm);
+    }
+    .modal-img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-details { padding: 36px; display: flex; flex-direction: column; justify-content: center; }
 
     /* Cart Drawer Modal */
-    .cart-drawer { position: fixed; top: 0; right: -420px; width: 100%; max-width: 400px; height: 100vh; background: white; box-shadow: -10px 0 30px rgba(0,0,0,0.15); z-index: 1000; transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; }
+    .cart-drawer {
+      position: fixed;
+      top: 0; right: -440px;
+      width: 100%; max-width: 420px;
+      height: 100vh;
+      background: white;
+      box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+      z-index: 1000;
+      transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
     .cart-drawer.open { right: 0; }
-    .cart-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); backdrop-filter: blur(2px); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .cart-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(2px);
+      z-index: 999;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
     .cart-overlay.open { opacity: 1; pointer-events: auto; }
-    .cart-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-    .cart-header h3 { font-size: 1.25rem; font-weight: 700; }
-    .close-cart { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-muted); }
+    .cart-header { padding: 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .cart-header h3 { font-size: 1.3rem; font-weight: 800; }
     .cart-body { padding: 24px; flex-grow: 1; overflow-y: auto; }
     .cart-item-row { display: flex; gap: 16px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border); align-items: center; }
-    .cart-item-row img { width: 64px; height: 64px; border-radius: 8px; object-fit: cover; }
-    .cart-item-info { flex-grow: 1; }
-    .cart-item-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
-    .cart-item-price { font-weight: 800; color: var(--primary); font-size: 0.9rem; }
-    .cart-footer { padding: 24px; border-top: 1px solid var(--border); background: var(--gray-bg); }
-    .cart-total-row { display: flex; justify-content: space-between; font-size: 1.15rem; font-weight: 800; margin-bottom: 16px; }
-    .checkout-btn { width: 100%; background: #22c55e; color: white; border: none; padding: 14px; border-radius: 99px; font-weight: 800; font-size: 1rem; cursor: pointer; transition: background 0.2s; }
+    .cart-item-row img { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; }
+    .cart-footer { padding: 24px; border-top: 1px solid var(--border); background: var(--gray-light); }
+    .cart-total-row { display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 800; margin-bottom: 20px; }
+    .checkout-btn { width: 100%; background: #22c55e; color: white; border: none; padding: 16px; border-radius: 99px; font-weight: 800; font-size: 1.05rem; cursor: pointer; transition: background 0.2s; box-shadow: var(--shadow-sm); }
     .checkout-btn:hover { background: #16a34a; }
+
+    @media (max-width: 868px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-text { text-align: center; }
+      .hero p { margin: 0 auto 32px; }
+      .hero-cta { justify-content: center; }
+      .search-box { display: none; }
+      .footer-content { grid-template-columns: 1fr 1fr; }
+      .modal-box { grid-template-columns: 1fr; max-height: 90vh; overflow-y: auto; }
+      .modal-img { height: 260px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Notification Bar -->
+  <!-- Top Announcement Bar -->
   <div class="top-bar">
-    ✨ Ganhe 5% de desconto pagando via Pix! Entrega digital imediata.
+    <span>NOVIDADE</span> ⚡ 5% de desconto no Pix! Entrega digital automática após aprovação.
   </div>
 
   <!-- Header -->
   <header>
     <div class="nav-container">
       <a href="#" class="logo">Meu Mimo <span>Digital</span></a>
-      <ul class="nav-links">
-        <li><a href="#produtos">Produtos</a></li>
-        <li><a href="#depoimentos">Depoimentos</a></li>
-        <li><a href="#sobre">Sobre Nós</a></li>
-      </ul>
-      <button class="cart-btn" onclick="toggleCart()">
-        🛒 Carrinho <span class="cart-badge" id="cart-count">0</span>
-      </button>
+      
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" id="searchInput" placeholder="Pesquisar moldes, quadros ou polaroids..." onkeyup="filterProducts()">
+      </div>
+
+      <div class="nav-actions">
+        <button class="cart-btn" onclick="toggleCart()">
+          🛒 <span>Carrinho</span>
+          <span class="cart-badge" id="cart-count">0</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Banner -->
   <section class="hero">
-    <div class="hero-content">
-      <span class="hero-tag">💖 Presentes Digitais com Afeto</span>
-      <h1>Transforme lembranças em presentes inesquecíveis</h1>
-      <p>Moldes editáveis no Canva, quadros personalizados e mimos digitais prontos para eternizar momentos especiais.</p>
-      <a href="#produtos" class="hero-btn">Ver Catálogo de Moldes</a>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-badge">💖 Arquivos Editáveis no Canva</div>
+        <h1>Presentes que <span>emocionam</span> e eternizam momentos</h1>
+        <p>Baixe moldes exclusivos e crie mimos inesquecíveis para quem você ama em minutos.</p>
+        <div class="hero-cta">
+          <a href="#produtos" class="btn-primary">Explorar Catálogo ✨</a>
+          <a href="#depoimentos" class="btn-secondary">Ver Avaliações ⭐</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card-stack">
+          <img class="hero-img-main" src="https://dcdn-us.mitiendanube.com/stores/004/609/190/products/chatgpt-image-8-de-out-de-2026-00_41_03-e8992f648c72ab757517914308670598-1024-1024.webp" alt="Tirinha de fotos">
+          <img class="hero-img-sub" src="https://dcdn-us.mitiendanube.com/stores/004/609/190/products/img_7589-85689683e759927c7917901226357443-1024-1024.webp" alt="Quadro A4">
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Categories -->
-  <section class="categories">
-    <h2 class="section-title">📂 Categorias Populares</h2>
-    <div class="categories-grid">
-      <a href="#produtos" class="category-card">
-        <img src="https://dcdn-us.mitiendanube.com/stores/004/609/190/themes/lima/2-slide-1791437548763-1949893582-49d5996b00ffbb6bbc75ca18a9077da61791437504-240-0.webp?6958786256829648182" alt="Polaroid">
-        Polaroid
-      </a>
-      <a href="#produtos" class="category-card">
-        <img src="https://dcdn-us.mitiendanube.com/stores/004/609/190/themes/lima/2-slide-1791436357603-4183690577-a29be5b4f016971c121b38eeead706271791436314-240-0.webp?6958786256829648182" alt="Cartão Google">
-        Cartão Google
-      </a>
-      <a href="#produtos" class="category-card">
-        <img src="https://dcdn-us.mitiendanube.com/stores/004/609/190/themes/lima/2-slide-1791436357603-8293761929-81ffe1be5dea7514c93de507664f7fdb1791436313-240-0.webp?6958786256829648182" alt="Quadros A4">
-        Quadros A4
-      </a>
-      <a href="#produtos" class="category-card">
-        <img src="https://dcdn-us.mitiendanube.com/stores/004/609/190/themes/lima/2-slide-1791436357603-8323698324-5d84123033c6dcc47b9578be9acdc52f1791436313-240-0.webp?6958786256829648182" alt="Hot Wheels">
-        Hot Wheels
-      </a>
+  <!-- Trust Badges Bar -->
+  <div class="trust-bar">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">⚡</div>
+        <div>
+          <div class="trust-title">Download Imediato</div>
+          <div class="trust-sub">Receba o link por e-mail após a compra</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🎨</div>
+        <div>
+          <div class="trust-title">100% Editável no Canva</div>
+          <div class="trust-sub">Personalize textos, fotos e cores</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🔒</div>
+        <div>
+          <div class="trust-title">Pagamento Seguro</div>
+          <div class="trust-sub">Pix automático via Mercado Pago</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">💬</div>
+        <div>
+          <div class="trust-title">Suporte Dedicado</div>
+          <div class="trust-sub">Atendimento direto pelo WhatsApp</div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Products Section -->
-  <section class="products-section" id="produtos">
-    <h2 class="section-title">✨ Mimos em Destaque</h2>
-    <div class="products-grid">
-      
+  <!-- Filter & Category Tabs -->
+  <div class="filter-section" id="produtos">
+    <h2>✨ Catálogo Completo</h2>
+    <div class="filter-tabs">
+      <button class="tab-btn active" onclick="setCategory('all', this)">Todos</button>
+      <button class="tab-btn" onclick="setCategory('Moldes Canva', this)">Moldes Canva</button>
+      <button class="tab-btn" onclick="setCategory('Quadros A4', this)">Quadros A4</button>
+      <button class="tab-btn" onclick="setCategory('Polaroid', this)">Polaroid</button>
+      <button class="tab-btn" onclick="setCategory('Hot Wheels', this)">Hot Wheels</button>
+    </div>
+  </div>
+
+  <!-- Products Container -->
+  <div class="products-container">
+    <div class="products-grid" id="productsGrid">
+
       <!-- Product 1 -->
-      <article class="product-card">
-        <div class="product-img-wrap">
+      <article class="product-card" data-category="Moldes Canva" data-name="molde tirinha de fotos">
+        <div class="product-thumb" onclick="openModal('prod_1')">
           <span class="badge-discount">-83% OFF</span>
+          <span class="badge-digital">Digital</span>
           <img src="https://dcdn-us.mitiendanube.com/stores/004/609/190/products/chatgpt-image-8-de-out-de-2026-00_41_03-e8992f648c72ab757517914308670598-1024-1024.webp" alt="Molde Tirinha de Fotos">
         </div>
-        <div class="product-info">
-          <span class="product-category">Moldes Canva</span>
-          <h3 class="product-title">Molde - Tirinha de Fotos</h3>
-          <p class="product-desc">Arquivo 100% editável pelo Canva para criar tirinhas personalizadas com fotos, frases e QR Code do Spotify.</p>
-          <div class="product-footer">
-            <div class="price-wrap">
+        <div class="product-content">
+          <span class="product-cat">Moldes Canva</span>
+          <h3 class="product-name" onclick="openModal('prod_1')">Molde - Tirinha de Fotos</h3>
+          <p class="product-snippet">Arquivo editável pelo Canva para criar tirinha personalizada com fotos, frases e QR Code do Spotify.</p>
+          <div class="product-bottom">
+            <div class="price-box">
               <span class="price-old">R$ 29,90</span>
-              <span class="price-current">R$ 4,99</span>
+              <span class="price-main">R$ 4,99</span>
             </div>
-            <button class="add-btn" onclick="addToCart('Molde - Tirinha de Fotos', 4.99, 'https://dcdn-us.mitiendanube.com/stores/004/609/190/products/chatgpt-image-8-de-out-de-2026-00_41_03-e8992f648c72ab757517914308670598-1024-1024.webp')">+ Adicionar</button>
+            <button class="buy-btn" onclick="addToCart('Molde - Tirinha de Fotos', 4.99, 'https://dcdn-us.mitiendanube.com/stores/004/609/190/products/chatgpt-image-8-de-out-de-2026-00_41_03-e8992f648c72ab757517914308670598-1024-1024.webp')">
+              + Adicionar
+            </button>
           </div>
         </div>
       </article>
 
       <!-- Product 2 -->
-      <article class="product-card">
-        <div class="product-img-wrap">
+      <article class="product-card" data-category="Quadros A4" data-name="quadro a4 nossa musica">
+        <div class="product-thumb" onclick="openModal('prod_2')">
           <span class="badge-discount">-50% OFF</span>
+          <span class="badge-digital">Digital</span>
           <img src="https://dcdn-us.mitiendanube.com/stores/004/609/190/products/img_7589-85689683e759927c7917901226357443-1024-1024.webp" alt="Quadro A4 Nossa Música">
         </div>
-        <div class="product-info">
-          <span class="product-category">Quadros A4</span>
-          <h3 class="product-title">Quadro A4 - Nossa Música</h3>
-          <p class="product-desc">Modelo digital romântico para montar quadro A4 personalizado com foto, música marcante e datas especiais.</p>
-          <div class="product-footer">
-            <div class="price-wrap">
+        <div class="product-content">
+          <span class="product-cat">Quadros A4</span>
+          <h3 class="product-name" onclick="openModal('prod_2')">Quadro A4 - Nossa Música</h3>
+          <p class="product-snippet">Modelo digital romântico para montar quadro A4 personalizado com foto e música marcante.</p>
+          <div class="product-bottom">
+            <div class="price-box">
               <span class="price-old">R$ 19,90</span>
-              <span class="price-current">R$ 9,90</span>
+              <span class="price-main">R$ 9,90</span>
             </div>
-            <button class="add-btn" onclick="addToCart('Quadro A4 - Nossa Música', 9.90, 'https://dcdn-us.mitiendanube.com/stores/004/609/190/products/img_7589-85689683e759927c7917901226357443-1024-1024.webp')">+ Adicionar</button>
+            <button class="buy-btn" onclick="addToCart('Quadro A4 - Nossa Música', 9.90, 'https://dcdn-us.mitiendanube.com/stores/004/609/190/products/img_7589-85689683e759927c7917901226357443-1024-1024.webp')">
+              + Adicionar
+            </button>
           </div>
         </div>
       </article>
 
     </div>
-  </section>
+  </div>
 
-  <!-- Testimonials Section -->
-  <section class="testimonials-section" id="depoimentos">
-    <div class="testimonials-container">
-      <h2 class="section-title" style="justify-content: center;">💬 O que dizem nossos clientes</h2>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"Mais de coração eu agradeço pelo trabalho incrível, pelo carinho e pelo cuidado com todos os detalhes."</p>
-          <p class="testimonial-author"> Allan</p>
+  <!-- Reviews Section -->
+  <section class="reviews-section" id="depoimentos">
+    <div class="reviews-header">
+      <h2>Depoimentos de Quem Ama</h2>
+      <p>Confira a experiência de quem já adquiriu e presenteou com os nossos mimos digitais.</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Mais de coração eu agradeço pelo trabalho incrível, pelo carinho e pelo cuidado com todos os detalhes."</p>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">A</div>
+          <div class="reviewer-name">Allan</div>
         </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"Ficou lindo, lindo, lindo. Amei. Como pode uma foto tocar tanto a gente? Obrigada pelo capricho."</p>
-          <p class="testimonial-author"> Letícia Costa</p>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Ficou lindo, lindo, lindo. Amei. Como pode uma foto tocar tanto a gente? Obrigada pelo capricho."</p>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">L</div>
+          <div class="reviewer-name">Letícia Costa</div>
         </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"Eu achei lindo, muito delicado. A pessoa que ganhou chorou. Muito obrigada por esse momento."</p>
-          <p class="testimonial-author"> Maiara</p>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Eu achei lindo, muito delicado. A pessoa que ganhou chorou. Muito obrigada por esse momento."</p>
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">M</div>
+          <div class="reviewer-name">Maiara</div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="faq-header">
+      <h2>Dúvidas Frequentes</h2>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Como recebo meu produto digital?</div>
+      <div class="faq-answer">Assim que o pagamento Pix for confirmado, o link de acesso ao modelo editável no Canva será exibido na tela e enviado para o seu e-mail cadastrado.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">Preciso do Canva Pro pago?</div>
+      <div class="faq-answer">Não! Todos os nossos modelos foram criados para funcionarem perfeitamente no Canva Gratuito.</div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer>
-    <div class="footer-container">
+    <div class="footer-content">
       <div class="footer-brand">
         <h2>Meu Mimo Digital</h2>
-        <p>Arquivos digitais para transformar lembranças em presentes especiais e eternos.</p>
+        <p>Arquivos digitais delicados para transformar lembranças em presentes inesquecíveis.</p>
       </div>
-      <div class="footer-col">
-        <h4>Contato</h4>
-        <ul>
+      <div>
+        <div class="footer-title">Navegação</div>
+        <ul class="footer-links">
+          <li><a href="#produtos">Produtos</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-title">Contato</div>
+        <ul class="footer-links">
           <li>📍 Itu - SP</li>
-          <li>📱 WhatsApp: (11) 3468-3618</li>
+          <li>📱 (11) 3468-3618</li>
           <li>✉️ Kdpersonalizados.itu@gmail.com</li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Redes Sociais</h4>
-        <ul>
-          <li>📸 Instagram: @Meumimo_digital</li>
+      <div>
+        <div class="footer-title">Redes</div>
+        <ul class="footer-links">
+          <li><a href="https://instagram.com/Meumimo_digital" target="_blank">Instagram</a></li>
         </ul>
       </div>
     </div>
@@ -273,12 +865,19 @@
     </div>
   </footer>
 
+  <!-- Floating WhatsApp CTA -->
+  <a href="https://wa.me/551134683618?text=Olá!%20Tenho%20dúvidas%20sobre%20os%20moldes" target="_blank" class="wsp-float" title="Fale pelo WhatsApp">
+    <svg viewBox="0 0 32 32">
+      <path d="M16 2a13.9 13.9 0 00-11.8 21.3L2 30l6.9-2.2A13.9 13.9 0 1016 2zm0 25.4a11.5 11.5 0 01-5.9-1.6l-.4-.3-4.4 1.4 1.4-4.3-.3-.4A11.5 11.5 0 1116 27.4zm6.3-8.6c-.3-.2-2-.9-2.3-1s-.6-.2-.8.2-.9 1-1.1 1.2-.4.3-.7.1a9.2 9.2 0 01-2.7-1.7 10.1 10.1 0 01-1.9-2.3c-.2-.3 0-.5.1-.7l.5-.6.3-.5a.6.6 0 000-.6c-.1-.2-.8-1.9-1.1-2.6-.3-.7-.6-.6-.8-.6h-.7a1.4 1.4 0 00-1 .5 4.3 4.3 0 00-1.3 3.2 7.6 7.6 0 001.6 4 17.5 17.5 0 006.7 5.9c2.4 1 2.9 1 3.9.9a3.3 3.3 0 002.2-1.5 2.7 2.7 0 00.2-1.5c-.2-.1-.5-.2-.9-.4z"/>
+    </svg>
+  </a>
+
   <!-- Cart Drawer Component -->
   <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
   <div class="cart-drawer" id="cart-drawer">
     <div class="cart-header">
-      <h3>Seu Carrinho</h3>
-      <button class="close-cart" onclick="toggleCart()">&times;</button>
+      <h3>Seu Carrinho 🛒</h3>
+      <button style="background:none; border:none; font-size:1.5rem; cursor:pointer;" onclick="toggleCart()">&times;</button>
     </div>
     <div class="cart-body" id="cart-items">
       <p style="text-align: center; color: var(--gray-muted); margin-top: 40px;">Seu carrinho está vazio.</p>
@@ -288,12 +887,45 @@
         <span>Total:</span>
         <span id="cart-total-price">R$ 0,00</span>
       </div>
-      <button class="checkout-btn" onclick="checkoutMock()">Finalizar Pedido Demo (Pix)</button>
+      <button class="checkout-btn" onclick="checkoutMock()">Finalizar Compra Demo (Pix)</button>
+    </div>
+  </div>
+
+  <!-- Quick View Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <img id="modalImg" class="modal-img" src="" alt="">
+      <div class="modal-details">
+        <span class="product-cat" id="modalCat"></span>
+        <h2 style="font-family:'Playfair Display', serif; margin-bottom:12px;" id="modalTitle"></h2>
+        <p style="color:var(--gray-muted); margin-bottom:24px;" id="modalDesc"></p>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:1.8rem; font-weight:800; color:var(--primary-dark);" id="modalPrice"></span>
+          <button class="buy-btn" id="modalBuyBtn">Adicionar ao Carrinho</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
     let cart = [];
+    const productsData = {
+      'prod_1': {
+        name: 'Molde - Tirinha de Fotos',
+        category: 'Moldes Canva',
+        price: 4.99,
+        img: 'https://dcdn-us.mitiendanube.com/stores/004/609/190/products/chatgpt-image-8-de-out-de-2026-00_41_03-e8992f648c72ab757517914308670598-1024-1024.webp',
+        desc: 'Arquivo 100% editável pelo Canva para criar uma tirinha personalizada com fotos, frases, emojis e QR Code do Spotify.'
+      },
+      'prod_2': {
+        name: 'Quadro A4 - Nossa Música',
+        category: 'Quadros A4',
+        price: 9.90,
+        img: 'https://dcdn-us.mitiendanube.com/stores/004/609/190/products/img_7589-85689683e759927c7917901226357443-1024-1024.webp',
+        desc: 'Modelo digital romântico para montar um quadro A4 personalizado com a foto do casal, música marcante e datas especiais.'
+      }
+    };
 
     function toggleCart() {
       document.getElementById('cart-drawer').classList.toggle('open');
@@ -331,9 +963,9 @@
         return `
           <div class="cart-item-row">
             <img src="${item.img}" alt="${item.title}">
-            <div class="cart-item-info">
-              <div class="cart-item-title">${item.title}</div>
-              <div class="cart-item-price">${item.qty}x R$ ${item.price.toFixed(2).replace('.', ',')}</div>
+            <div style="flex-grow:1;">
+              <div style="font-weight:700; font-size:0.95rem;">${item.title}</div>
+              <div style="color:var(--primary); font-weight:800; font-size:0.9rem;">${item.qty}x R$ ${item.price.toFixed(2).replace('.', ',')}</div>
             </div>
           </div>
         `;
@@ -343,11 +975,52 @@
     }
 
     function checkoutMock() {
-      if (cart.length === 0) {
-        alert('Seu carrinho está vazio!');
-        return;
-      }
-      alert('🛒 Demonstração Visual:\nEm produção real, o cliente seria redirecionado para gerar o QrCode Pix do Mercado Pago!');
+      if (cart.length === 0) return alert('Seu carrinho está vazio!');
+      alert('⚡ Modo Demonstração Visual:\nEm ambiente de produção, este botão gera o pagamento em Pix via Mercado Pago!');
+    }
+
+    function setCategory(category, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll('.product-card').forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function filterProducts() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      document.querySelectorAll('.product-card').forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        if (name.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function openModal(prodKey) {
+      const prod = productsData[prodKey];
+      if (!prod) return;
+      document.getElementById('modalImg').src = prod.img;
+      document.getElementById('modalCat').textContent = prod.category;
+      document.getElementById('modalTitle').textContent = prod.name;
+      document.getElementById('modalDesc').textContent = prod.desc;
+      document.getElementById('modalPrice').textContent = `R$ ${prod.price.toFixed(2).replace('.', ',')}`;
+      document.getElementById('modalBuyBtn').onclick = function() {
+        addToCart(prod.name, prod.price, prod.img);
+        closeModal();
+      };
+      document.getElementById('modalOverlay').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
     }
   </script>
 </body>
