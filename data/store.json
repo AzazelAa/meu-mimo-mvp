@@ -1,0 +1,53 @@
+{
+  "settings": {
+    "storeName": "Meu Mimo Digital",
+    "tagline": "Arquivos digitais para transformar lembrancas em presentes especiais.",
+    "whatsapp": "551134683618",
+    "instagram": "https://instagram.com/Meumimo_digital",
+    "email": "Kdpersonalizados.itu@gmail.com",
+    "city": "Itu - SP",
+    "pixDiscountPercent": 5
+  },
+  "products": [
+    {
+      "id": "prod_tirinha_fotos",
+      "slug": "molde-tirinha-de-fotos",
+      "name": "Molde - Tirinha de Fotos",
+      "category": "Moldes Canva",
+      "price": 4.99,
+      "compareAtPrice": 29.9,
+      "featured": true,
+      "image": "https://dcdn-us.mitiendanube.com/stores/004/609/190/products/chatgpt-image-8-de-out-de-2026-00_41_03-e8992f648c72ab757517914308670598-1024-1024.webp",
+      "gallery": [
+        "https://dcdn-us.mitiendanube.com/stores/004/609/190/products/chatgpt-image-8-de-out-de-2026-00_41_03-e8992f648c72ab757517914308670598-1024-1024.webp",
+        "https://dcdn-us.mitiendanube.com/stores/004/609/190/products/img_7585-d7cb9374d204a4ecae17901226361389-1024-1024.webp",
+        "https://dcdn-us.mitiendanube.com/stores/004/609/190/products/img_7587-c8a753fec3433f879217901226356348-1024-1024.webp"
+      ],
+      "shortDescription": "Arquivo editavel pelo Canva para criar uma tirinha personalizada com fotos, frases e QR Code.",
+      "description": "Transforme momentos especiais em uma lembranca para guardar para sempre. O arquivo e 100% digital, editavel pelo Canva e pronto para personalizar com fotos, frases, emojis e QR Code do Spotify.",
+      "digitalDeliveryUrl": "https://www.canva.com/",
+      "active": true
+    },
+    {
+      "id": "prod_quadro_musica",
+      "slug": "quadro-a4-nossa-musica",
+      "name": "Quadro A4 - Nossa Musica",
+      "category": "Quadros A4",
+      "price": 9.9,
+      "compareAtPrice": 19.9,
+      "featured": true,
+      "image": "https://dcdn-us.mitiendanube.com/stores/004/609/190/products/img_7589-85689683e759927c7917901226357443-1024-1024.webp",
+      "gallery": [],
+      "shortDescription": "Modelo digital romantico para quadro A4 personalizado.",
+      "description": "Modelo digital para montar um quadro A4 com foto, musica especial e detalhes personalizados.",
+      "digitalDeliveryUrl": "https://www.canva.com/",
+      "active": true
+    }
+  ],
+  "orders": [],
+  "pages": {
+    "about": "A Meu Mimo Digital cria arquivos personalizados para eternizar momentos especiais em presentes delicados, criativos e cheios de afeto.",
+    "faq": "Apos a confirmacao do pagamento, o cliente recebe o acesso ao arquivo digital por e-mail e tambem pode consultar os produtos comprados na area do cliente.",
+    "privacy": "Os dados coletados sao usados apenas para processar pedidos, entregar produtos digitais e melhorar a experiencia de compra."
+  }
+}

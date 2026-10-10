@@ -1,0 +1,50 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: meu-mimo-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-meu_mimo}
+      POSTGRES_USER: ${POSTGRES_USER:-meu_mimo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-meu_mimo_dev_password}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-meu_mimo} -d ${POSTGRES_DB:-meu_mimo}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  meu-mimo:
+    build: .
+    container_name: meu-mimo-mvp
+    ports:
+      - "${APP_PORT:-3000}:3000"
+      - "${ADMIN_PORT:-3001}:3000"
+    env_file:
+      - .env
+    environment:
+      PORT: 3000
+      HOST: 0.0.0.0
+      BASE_URL: "${BASE_URL:-http://localhost:3000}"
+      PUBLIC_STORE_URL: "${PUBLIC_STORE_URL:-http://localhost:3000}"
+      ADMIN_PORT: "${ADMIN_PORT:-3001}"
+      ADMIN_HOSTS: "${ADMIN_HOSTS:-localhost:3001,127.0.0.1:3001}"
+      DATABASE_URL: "postgres://${POSTGRES_USER:-meu_mimo}:${POSTGRES_PASSWORD:-meu_mimo_dev_password}@db:5432/${POSTGRES_DB:-meu_mimo}"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
