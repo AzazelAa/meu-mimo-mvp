@@ -453,14 +453,15 @@
     }
     .reviewer-name { font-weight: 700; color: var(--dark); font-size: 0.875rem; }
 
-    /* Cozy Glow Effect for Cards */
+    /* Cozy Glow Effect & Spring Animations for Cards */
     .product-card {
       position: relative;
       background: white;
       border-radius: var(--radius-md);
       border: 1.5px solid var(--border);
       overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.35s ease;
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
@@ -470,20 +471,20 @@
       position: absolute;
       inset: -2px;
       border-radius: calc(var(--radius-md) + 2px);
-      background: linear-gradient(135deg, rgba(200, 109, 124, 0.4), rgba(232, 222, 212, 0.2), rgba(158, 123, 102, 0.4));
+      background: linear-gradient(135deg, rgba(200, 109, 124, 0.35), rgba(232, 222, 212, 0.2), rgba(158, 123, 102, 0.35));
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.35s ease;
       z-index: -1;
-      filter: blur(8px);
+      filter: blur(10px);
     }
     .product-card:hover::before { opacity: 1; }
     .product-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px) scale(1.01);
       box-shadow: var(--shadow-md);
       border-color: rgba(200, 109, 124, 0.4);
     }
 
-    /* MotionAccordion FAQ Section */
+    /* MotionAccordion Ultra-Fluid CSS Grid Animation */
     .faq-section { max-width: 780px; margin: 56px auto; padding: 0 20px; }
     .faq-header { text-align: center; margin-bottom: 32px; }
     .faq-header h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--dark); margin-bottom: 8px; }
@@ -495,12 +496,14 @@
       border: 1.5px solid var(--border);
       border-radius: var(--radius-md);
       overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.35s ease, box-shadow 0.35s ease;
       box-shadow: var(--shadow-sm);
     }
     .faq-item.active {
-      border-color: rgba(200, 109, 124, 0.4);
+      border-color: rgba(200, 109, 124, 0.45);
       box-shadow: var(--shadow-md);
+      transform: scale(1.008);
     }
     .faq-question {
       padding: 18px 24px;
@@ -524,29 +527,41 @@
       justify-content: center;
       flex-shrink: 0;
       color: var(--primary-dark);
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.2s;
+      will-change: transform;
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, color 0.3s ease;
     }
     .faq-item.active .faq-icon-badge {
-      transform: rotate(180deg);
+      transform: rotate(180deg) scale(1.05);
       background: var(--primary);
       color: white;
     }
+    
+    /* Hardware-Accelerated 0fr -> 1fr Grid Interpolation */
     .faq-answer-wrapper {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, padding 0.3s ease;
-      padding: 0 24px;
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .faq-item.active .faq-answer-wrapper {
-      max-height: 200px;
+      grid-template-rows: 1fr;
+    }
+    
+    .faq-answer-inner {
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.3s ease 0.05s, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 0 24px;
+    }
+    .faq-item.active .faq-answer-inner {
       opacity: 1;
+      transform: translateY(0);
       padding: 0 24px 20px;
     }
     .faq-answer {
       color: var(--gray-muted);
       font-size: 0.925rem;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     /* Footer */
@@ -922,8 +937,10 @@
           </div>
         </div>
         <div class="faq-answer-wrapper">
-          <div class="faq-answer">
-            Assim que o pagamento Pix for confirmado pelo sistema, o link de acesso ao modelo editável no Canva é disponibilizado imediatamente na tela e enviado para o seu e-mail cadastrado.
+          <div class="faq-answer-inner">
+            <div class="faq-answer">
+              Assim que o pagamento Pix for confirmado pelo sistema, o link de acesso ao modelo editável no Canva é disponibilizado imediatamente na tela e enviado para o seu e-mail cadastrado.
+            </div>
           </div>
         </div>
       </div>
@@ -936,8 +953,10 @@
           </div>
         </div>
         <div class="faq-answer-wrapper">
-          <div class="faq-answer">
-            Não! Todos os nossos arquivos foram desenvolvidos para funcionarem 100% no Canva Gratuito, sem necessidade de qualquer assinatura ou pagamento extra.
+          <div class="faq-answer-inner">
+            <div class="faq-answer">
+              Não! Todos os nossos arquivos foram desenvolvidos para funcionarem 100% no Canva Gratuito, sem necessidade de qualquer assinatura ou pagamento extra.
+            </div>
           </div>
         </div>
       </div>
@@ -950,8 +969,10 @@
           </div>
         </div>
         <div class="faq-answer-wrapper">
-          <div class="faq-answer">
-            Sim! Você pode personalizar fotos, nomes, frases e QR Codes diretamente pelo aplicativo gratuito do Canva no seu celular ou pelo navegador do computador.
+          <div class="faq-answer-inner">
+            <div class="faq-answer">
+              Sim! Você pode personalizar fotos, nomes, frases e QR Codes diretamente pelo aplicativo gratuito do Canva no seu celular ou pelo navegador do computador.
+            </div>
           </div>
         </div>
       </div>
